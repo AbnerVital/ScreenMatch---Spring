@@ -1,5 +1,7 @@
 package br.com.alura.Screenmatch.model;
 
+import br.com.alura.Screenmatch.service.traducao.ConsultaMyMemory;
+
 import java.util.OptionalDouble;
 
 public class Serie {
@@ -24,7 +26,7 @@ public class Serie {
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
-        this.sinopse = dadosSerie.sinopse();
+        this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse().trim());
     }
 
     public String getTitulo() {
