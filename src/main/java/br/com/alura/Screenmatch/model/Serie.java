@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
-@Table (name = "series")
+@Table(name = "series")
 public class Serie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 500)
     private String titulo;
 
     private Integer totalTemporadas;
@@ -24,14 +24,17 @@ public class Serie {
 
     private Categoria genero;
 
+    @Column(length = 500)
     private String atores;
 
+    @Column(length = 2000)
     private String poster;
 
+    @Column(columnDefinition = "TEXT")
     private String sinopse;
 
-    @Transient
-    private List<DadosEpisodio> episodio = new ArrayList<>();
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(){}
 
@@ -49,12 +52,13 @@ public class Serie {
         this.id = id;
     }
 
-    public List<DadosEpisodio> getEpisodio() {
-        return episodio;
+    public List<Episodio> getEpisodio() {
+        return episodios;
     }
 
-    public void setEpisodio(List<DadosEpisodio> episodio) {
-        this.episodio = episodio;
+    public void setEpisodio(List<Episodio> episodio) {
+        this.episodios = episodio;
+        episodio.forEach(e -> e.setSerie(this));
     }
 
     public String getTitulo() {
@@ -126,6 +130,7 @@ public class Serie {
                 "Avaliacao: " + avaliacao + " | " +
                 "Atores: " + atores +  " | " +
                 "Poster: " + poster +  " | " +
-                "Sinópse: " + sinopse;
+                "Sinópse: " + sinopse + " | " +
+                        "Episodios: " + episodios;
     }
 }
