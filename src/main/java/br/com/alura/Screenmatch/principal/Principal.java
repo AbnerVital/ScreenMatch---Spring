@@ -33,6 +33,7 @@ public class Principal {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Buscar séries listadas
+                    4 - Buscar série por nome
                     0 - Sair                                 
                     """;
 
@@ -50,6 +51,9 @@ public class Principal {
                 case 3:
                     buscarSeriesListadas();
                     break;
+                case 4:
+                    buscarSeriePorTitulo();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -58,6 +62,7 @@ public class Principal {
             }
         }
     }
+
 
     private void buscarSeriesListadas() {
         series = repositorio.findAll();
@@ -87,9 +92,14 @@ public class Principal {
         System.out.println("Escolha uma série pelo nome: ");
         var nomeSerie = leitura.nextLine();
 
-        Optional<Serie> serie = series.stream()
-                .filter(s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
-                .findFirst();
+//retorna da lista
+//        Optional<Serie> serie = series.stream()
+//                .filter(s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
+//                .findFirst();
+
+        //retorna do banco
+        Optional<Serie> serie = repositorio.findByTituloContainingIgnoreCase(nomeSerie);
+
 
         if(serie.isPresent()){
             var serieEncontrada = serie.get();
@@ -113,5 +123,17 @@ public class Principal {
         }
 
 
+    }
+
+    private void buscarSeriePorTitulo() {
+        System.out.println("Digite o nome da série: ");
+        var nomeSerie = leitura.nextLine();
+        Optional<Serie> serieBuscada = repositorio.findByTituloContainingIgnoreCase(nomeSerie);
+
+        if (serieBuscada.isPresent()) {
+            System.out.println("Dados da série: " + serieBuscada.get());
+        } else {
+            System.out.println("série não encontrada!");
+        }
     }
 }
