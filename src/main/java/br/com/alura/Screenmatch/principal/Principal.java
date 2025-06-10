@@ -175,12 +175,12 @@ public class Principal {
 
     private void buscarSeriesPorTotalTemporadas() {
         buscarSeriesListadas();
-        System.out.println("Séries com quantas temporadas você quer buscar?");
+        System.out.println("Filtrar séries até quantas temporadas? ");
         var totalTemporadas = leitura.nextInt();
-        System.out.println("Séries com qual avaliação você quer buscar? ");
+        System.out.println("Com avaliação a partir de que valor? ");
         var serieAvaliacao = leitura.nextDouble();
         List<Serie> series = repositorio.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(totalTemporadas, serieAvaliacao);
-        System.out.println("Séries com " + totalTemporadas + " e avaliação mínima de " + serieAvaliacao + ": ");
+        System.out.println("Séries com até " + totalTemporadas + "temporadas e avaliação mínima de " + serieAvaliacao + ": ");
         series.forEach(s -> System.out.println("Título: " + s.getTitulo() + " | Avaliação " + s.getAvaliacao() + " | Total de Temporadas: " + s.getTotalTemporadas()));
     }
 }
