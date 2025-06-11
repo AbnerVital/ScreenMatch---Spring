@@ -179,7 +179,7 @@ public class Principal {
         var totalTemporadas = leitura.nextInt();
         System.out.println("Com avaliação a partir de que valor? ");
         var serieAvaliacao = leitura.nextDouble();
-        List<Serie> series = repositorio.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(totalTemporadas, serieAvaliacao);
+        List<Serie> series = repositorio.seriesPorTemporadaEAvaliacao(totalTemporadas, serieAvaliacao);
         System.out.println("Séries com até " + totalTemporadas + "temporadas e avaliação mínima de " + serieAvaliacao + ": ");
         series.forEach(s -> System.out.println("Título: " + s.getTitulo() + " | Avaliação " + s.getAvaliacao() + " | Total de Temporadas: " + s.getTotalTemporadas()));
     }
