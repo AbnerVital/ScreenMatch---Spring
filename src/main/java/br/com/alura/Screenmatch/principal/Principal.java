@@ -93,6 +93,28 @@ public class Principal {
 //        dadosSeries.add(dados);
         repositorio.save(serie);
         System.out.println(dados);
+
+        Optional<Serie> serie2 = repositorio.findByTituloContainingIgnoreCase(serie.getTitulo());
+        if (serie2.isPresent()) {
+            var serieEncontrada = serie2.get();
+            List<DadosTemporada> temporadas = new ArrayList<>();
+            for (int i = 1; i <= serieEncontrada.getTotalTemporadas(); i++) {
+                var json = consumo.obterDados(ENDERECO + serieEncontrada.getTitulo().replace(" ", "+") + "&season=" + i + API_KEY);
+                DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+                temporadas.add(dadosTemporada);
+            }
+//            temporadas.forEach(System.out::println);
+
+            List<Episodio> episodios = temporadas.stream()
+                    .flatMap(d-> d.episodios().stream()
+
+                            .map(e -> new Episodio(d.numero(), e)))
+                    .collect(Collectors.toList());
+            serieEncontrada.setEpisodio(episodios);
+            repositorio.save(serieEncontrada);
+        }else {
+            System.out.println("Série não encontrada!");
+        }
     }
 
     private DadosSerie getDadosSerie() {
@@ -115,9 +137,7 @@ public class Principal {
 
         //retorna do banco
         Optional<Serie> serie = repositorio.findByTituloContainingIgnoreCase(nomeSerie);
-
-
-        if(serie.isPresent()){
+        if (serie.isPresent()) {
             var serieEncontrada = serie.get();
             List<DadosTemporada> temporadas = new ArrayList<>();
             for (int i = 1; i <= serieEncontrada.getTotalTemporadas(); i++) {
