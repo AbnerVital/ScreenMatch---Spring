@@ -102,10 +102,14 @@ public class Episodio {
 
     @Override
     public String toString() {
-        return  "temporada: " + temporada +
+        // Formata a data para exibir de forma legível
+        String dataFormatada = (dataLancamento != null) ? dataLancamento.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "N/A";
+
+        return "temporada: " + temporada +
                 " | titulo: " + titulo +
                 " | numeroEpsodio: " + numeroEpsodio +
                 " | avaliacao: " + avaliacao +
-                " | dataLancamento: " + dataLancamento;
+                " | dataLancamento: " + dataFormatada +
+                " | série: " + (serie != null ? serie.getTitulo() : "N/A"); // Adicione o título da série também!
     }
 }
