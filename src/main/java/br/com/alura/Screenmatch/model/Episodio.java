@@ -17,7 +17,7 @@ public class Episodio {
 
     private String titulo;
 
-    private Integer numeroEpsodio;
+    private Integer numeroEpisodio;
 
     private Double avaliacao;
 
@@ -31,7 +31,7 @@ public class Episodio {
     public Episodio(Integer numeroTemporada, DadosEpisodio dadosEpisodio) {
         this.temporada = numeroTemporada;
         this.titulo = dadosEpisodio.titulo();
-        this.numeroEpsodio = dadosEpisodio.numero();
+        this.numeroEpisodio = dadosEpisodio.numero();
 
         try {
             this.avaliacao = Double.valueOf(dadosEpisodio.avaliacao());
@@ -61,7 +61,7 @@ public class Episodio {
     }
 
     public void setNumeroEpsodio(Integer numeroEpsodio) {
-        this.numeroEpsodio = numeroEpsodio;
+        this.numeroEpisodio = numeroEpsodio;
     }
 
     public void setAvaliacao(Double avaliacao) {
@@ -88,8 +88,8 @@ public class Episodio {
         return titulo;
     }
 
-    public Integer getNumeroEpsodio() {
-        return numeroEpsodio;
+    public Integer getNumeroEpisodio() {
+        return numeroEpisodio;
     }
 
     public Double getAvaliacao() {
@@ -100,6 +100,8 @@ public class Episodio {
         return dataLancamento;
     }
 
+
+
     @Override
     public String toString() {
         // Formata a data para exibir de forma legível
@@ -107,7 +109,7 @@ public class Episodio {
 
         return "temporada: " + temporada +
                 " | titulo: " + titulo +
-                " | numeroEpsodio: " + numeroEpsodio +
+                " | numeroEpsodio: " + numeroEpisodio +
                 " | avaliacao: " + avaliacao +
                 " | dataLancamento: " + dataFormatada +
                 " | série: " + (serie != null ? serie.getTitulo() : "N/A"); // Adicione o título da série também!
