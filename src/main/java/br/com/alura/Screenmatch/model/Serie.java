@@ -121,6 +121,10 @@ public class Serie {
         return id;
     }
 
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
     @Override
     public String toString() {
         return
