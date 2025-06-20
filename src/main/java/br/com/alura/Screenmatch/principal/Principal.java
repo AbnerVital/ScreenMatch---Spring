@@ -225,7 +225,7 @@ public class Principal {
         episodiosEncontrados.forEach(e ->
                 System.out.printf("Série: %s | Temporada: %s Episódio: %s - %s\n",
                 e.getSerie().getTitulo(), e.getTemporada(),
-                e.getNumeroEpsodio(), e.getTitulo()));
+                e.getNumeroEpisodio(), e.getTitulo()));
     }
 
     private void buscaTop5Episodios(){
@@ -236,7 +236,7 @@ public class Principal {
             topEpsodios.forEach(e ->
                     System.out.printf("Série: %s | Temporada: %s | Episódio: %s - %s | Avaliação: %s\n",
                             e.getSerie().getTitulo(), e.getTemporada(),
-                            e.getNumeroEpsodio(), e.getTitulo(), e.getAvaliacao()));
+                            e.getNumeroEpisodio(), e.getTitulo(), e.getAvaliacao()));
         }
 
     }
